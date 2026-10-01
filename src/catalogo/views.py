@@ -1,56 +1,36 @@
-from django.shortcuts import get_object_or_404
-from rest_framework import status
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
+from rest_framework import viewsets, permissions
+from .models import Articulo, Proveedor
+from .serializers import (
+    ArticuloPublicSerializer,
+    ArticuloSerializer,
+    ProveedorPublicSerializer,
+    ProveedorSerializer,
+)
 
-# Create your views here.
-from .models import Articulo
-from .serializers import ArticuloSerializer
+# GET all = list() 
+# GET by id/pk = retrieve() -> RetrieveModelMixin
+# POST = create()
+# PUT = update() -> UpdateModelMixin
+# DELETE = destroy() -> DestroyModelMixin
 
+# VISTAS PROVEEDOR
+class ProveedorViewSet(viewsets.ModelViewSet):
+    queryset = Proveedor.objects.all()
+    permission_classes = [permissions.IsAuthenticated] # Protege todas las acciones con JWT
 
-@api_view(["GET", "POST"])
-def articulos(request):
-    if request.method == "GET":
-        articulos = Articulo.objects.all()
-        serializer = ArticuloSerializer(articulos, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-    if request.method == "POST":
-        serializer = ArticuloSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(
-                {"mensaje": "Articulo creado"}, status=status.HTTP_201_CREATED
-            )
-        return Response(
-            {"mensaje": "No se creó porque no es válido"},
-            status=status.HTTP_400_BAD_REQUEST,
-        )
+    def get_serializer_class(self):
+        if self.action in ['list', 'retrieve']:
+            return ProveedorPublicSerializer
+        return ProveedorSerializer
 
 
-@api_view(["GET", "PUT", "DELETE"])
-def articulos_detail(request, pk):
-    articulo = get_object_or_404(Articulo, pk=pk)
-    
-    if request.method == "GET":
-        serializer = ArticuloSerializer(articulo)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+# VISTAS ARTÍCULO
+class ArticuloViewSet(viewsets.ModelViewSet):
+    queryset = Articulo.objects.all()
+    # Permite lectura pública pero requiere autenticación (Token) para crear/editar/eliminar
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly] 
 
-    if request.method == "PUT":
-        serializer = ArticuloSerializer(articulo, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(
-                {"mensaje": "Articulo Actualizado"}, status=status.HTTP_200_OK
-            )
-        return Response(
-            {"mensaje": "No se Actualizó porque no es válido"},
-            status=status.HTTP_400_BAD_REQUEST,
-        )
-
-    if request.method == "DELETE":
-        articulo.delete()
-        return Response(
-            {"mensaje": "Articulo Borrado"},
-            status=status.HTTP_200_OK,
-        )
+    def get_serializer_class(self):
+        if self.action in ['list', 'retrieve']:
+            return ArticuloPublicSerializer
+        return ArticuloSerializer
