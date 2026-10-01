@@ -1,14 +1,21 @@
 info:
   name: Ag_prov
   type: http
+  seq: 1
 
 http:
   method: POST
   url: http://127.0.0.1:8000/api/proveedor/
   body:
     type: json
-    data: ""
-  auth: inherit
+    data: |-
+      {
+        "nombre": "MOTOMEL",
+        "telefono": "+543584646464"
+      }
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzkwODE5ODkzLCJpYXQiOjE3OTA4MTYyOTMsImp0aSI6IjRkZDUwZDMzMGYyZDRjNDdhNGE5MTU4YjlkYWFjYTI2IiwidXNlcl9pZCI6IjEifQ.YdRoQtPXwZEcMwxhzVBpiC6qPvxIiHBdkfj5EglZknM
 
 settings:
   encodeUrl: true

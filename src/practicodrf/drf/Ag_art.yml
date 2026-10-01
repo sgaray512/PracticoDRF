@@ -1,14 +1,25 @@
 info:
   name: Ag_art
   type: http
+  seq: 1
 
 http:
   method: POST
-  url: http://127.0.0.1:8000/api/articulos
+  url: http://127.0.0.1:8000/api/articulos/
   body:
     type: json
-    data: ""
-  auth: inherit
+    data: |-
+      {
+        "marca": "MOTOMEL",
+        "modelo": 2026,
+        "nombre": "Skua 250",
+        "precio": 4000000,
+        "stock": 10,
+        "proveedor": 1
+      }
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzkwODE5ODkzLCJpYXQiOjE3OTA4MTYyOTMsImp0aSI6IjRkZDUwZDMzMGYyZDRjNDdhNGE5MTU4YjlkYWFjYTI2IiwidXNlcl9pZCI6IjEifQ.YdRoQtPXwZEcMwxhzVBpiC6qPvxIiHBdkfj5EglZknM
 
 settings:
   encodeUrl: true
