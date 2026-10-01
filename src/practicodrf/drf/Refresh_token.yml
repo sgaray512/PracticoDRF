@@ -1,0 +1,20 @@
+info:
+  name: Refresh_token
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://127.0.0.1:8000/api/token/refresh/
+  body:
+    type: json
+    data: '{"refresh":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5MDg5NTUyNCwiaWF0IjoxNzkwODA5MTI0LCJqdGkiOiI0NDdkOGE3NWIyODY0M2NjOTM1ZmFmNDQxYzA1N2E4ZSIsInVzZXJfaWQiOiIxIn0.lUfANZfMhoxNUudx_Dm_Fl0wQbw_itf9oBvMMQ6LtP8"}'
+  auth:
+    type: bearer
+    token: '"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzkwNzQyOTk5LCJpYXQiOjE3OTA3NDI2OTksImp0aSI6IjBkOTRmMjJlNTg0NTQwMjQ4ZmU3NThmMjJjNjM4MjliIiwidXNlcl9pZCI6IjEifQ.tZ3Yx6GrqlPtjSoMuqoD06EmJBSDLt2kRLaNipGIQsI"'
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

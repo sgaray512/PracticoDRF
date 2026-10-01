@@ -1,0 +1,17 @@
+info:
+  name: Ag_art
+  type: http
+
+http:
+  method: POST
+  url: http://127.0.0.1:8000/api/articulos
+  body:
+    type: json
+    data: ""
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
